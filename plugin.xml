@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.core.runtime.text"
+            file-extensions="cpp"
+            id="en.steve.epx.content.cppsource"
+            name="C++ Source File"
+            priority="high">
+      </content-type>
+      <content-type
+            base-type="org.eclipse.core.runtime.text"
+            file-extensions="h"
+            id="en.steve.epx.content.cppheader"
+            name="C++ Header File"
+            priority="high">
+      </content-type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editorContentTypeBinding
+            contentTypeId="en.steve.epx.content.cppsource"
+            editorId="org.eclipse.ui.genericeditor.GenericEditor">
+      </editorContentTypeBinding>
+      <editorContentTypeBinding
+            contentTypeId="en.steve.epx.content.cppheader"
+            editorId="org.eclipse.ui.genericeditor.GenericEditor">
+      </editorContentTypeBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.genericeditor.icons">
+      <icon
+            contentType="en.steve.epx.content.cppsource"
+            icon="icons/file_cppsource.gif">
+      </icon>
+      <icon
+            contentType="en.steve.epx.content.cppheader"
+            icon="icons/file_cppheader.gif">
+      </icon>
+   </extension>
+   <extension
+         point="org.eclipse.ui.genericeditor.presentationReconcilers">
+      <presentationReconciler
+            class="en.steve.epx.content.CppPresentationReconciler"
+            contentType="en.steve.epx.content.cppsource">
+      </presentationReconciler>
+      <presentationReconciler
+            class="en.steve.epx.content.CppPresentationReconciler"
+            contentType="en.steve.epx.content.cppheader">
+      </presentationReconciler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.themes">
+      <themeElementCategory
+            id="en.steve.epx.content.settings"
+            label="Source Code">
+      </themeElementCategory>
+      <colorDefinition
+            categoryId="en.steve.epx.content.settings"
+            id="en.steve.epx.content.color.keyword"
+            label="Keyword color"
+            value="127,0,85">
+      </colorDefinition>
+      <colorDefinition
+            categoryId="en.steve.epx.content.settings"
+            id="en.steve.epx.content.color.comment"
+            label="Comment color"
+            value="63,127,95">
+      </colorDefinition>
+      <colorDefinition
+            categoryId="en.steve.epx.content.settings"
+            id="en.steve.epx.content.color.preprocessor"
+            label="Preprocessor color"
+            value="143,89,2">
+      </colorDefinition>
+      <colorDefinition
+            categoryId="en.steve.epx.content.settings"
+            id="en.steve.epx.content.color.string"
+            label="String color"
+            value="42,0,255">
+      </colorDefinition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.console.consolePatternMatchListeners">
+      <consolePatternMatchListener
+            class="en.steve.epx.build.GccMessagePatternMatcher"
+            id="en.steve.epx.build.gccerror"
+            regex=".+:\d+:\d+: error:">
+         <enablement>
+            <test
+                  property="org.eclipse.ui.console.consoleTypeTest"
+                  value="org.eclipse.debug.ui.ProcessConsoleType">
+            </test>
+         </enablement>
+      </consolePatternMatchListener>
+      <consolePatternMatchListener
+            class="en.steve.epx.build.GccMessagePatternMatcher"
+            id="en.steve.epx.build.gccfatalerror"
+            regex=".+:\d+:\d+: fatal error:">
+         <enablement>
+            <test
+                  property="org.eclipse.ui.console.consoleTypeTest"
+                  value="org.eclipse.debug.ui.ProcessConsoleType">
+            </test>
+         </enablement>
+      </consolePatternMatchListener>
+      <consolePatternMatchListener
+            class="en.steve.epx.build.GccMessagePatternMatcher"
+            id="en.steve.epx.build.gccwarning"
+            regex=".+:\d+:\d+: warning:">
+         <enablement>
+            <test
+                  property="org.eclipse.ui.console.consoleTypeTest"
+                  value="org.eclipse.debug.ui.ProcessConsoleType">
+            </test>
+         </enablement>
+      </consolePatternMatchListener>
+      <consolePatternMatchListener
+            class="en.steve.epx.build.GccMessagePatternMatcher"
+            id="en.steve.epx.build.gccnote"
+            regex=".+:\d+:\d+: note:">
+         <enablement>
+            <test
+                  property="org.eclipse.ui.console.consoleTypeTest"
+                  value="org.eclipse.debug.ui.ProcessConsoleType">
+            </test>
+         </enablement>
+      </consolePatternMatchListener>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="en.steve.epx.commands.TemplatePasteHandler"
+            id="en.steve.epx.commands.templatePaste"
+            name="templatePaste">
+      </command>
+      <command
+            defaultHandler="en.steve.epx.commands.ToggleBlockCommentHandler"
+            id="en.steve.epx.commands.toggleBlockComment"
+            name="toggleBlockComment">
+      </command>
+      <command
+            defaultHandler="en.steve.epx.commands.ToggleLineCommentsHandler"
+            id="en.steve.epx.commands.toggleLineComments"
+            name="toggleLineComments">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:edit?after=paste">
+         <command
+               commandId="en.steve.epx.commands.templatePaste"
+               label="Template Paste"
+               style="push"
+               tooltip="Paste as Template"
+               icon="platform:/plugin/org.eclipse.ui.workbench.texteditor/icons/full/elcl16/insert_template.png">
+            <visibleWhen>
+               <with variable="activeEditorId">
+                  <equals value="org.eclipse.ui.genericeditor.GenericEditor"/>
+               </with>
+            </visibleWhen>                  
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:edit?after=additions">
+         <separator
+               name="en.steve.epx.editor.sep1"
+               visible="true">
+         </separator>
+         <command
+               commandId="en.steve.epx.commands.toggleLineComments"
+               label="Toggle Line Comments"
+               style="push"
+               tooltip="Toggle Line Comments on the Selected Text">
+            <visibleWhen>
+               <with variable="activeEditorId">
+                  <equals value="org.eclipse.ui.genericeditor.GenericEditor"/>
+               </with>
+            </visibleWhen>         
+         </command>
+         <command
+               commandId="en.steve.epx.commands.toggleBlockComment"
+               label="Toggle Block Comment"
+               style="push"
+               tooltip="Toggle Block Comment on the Selected Text">
+            <visibleWhen>
+               <with variable="activeEditorId">
+                  <equals value="org.eclipse.ui.genericeditor.GenericEditor"/>
+               </with>
+            </visibleWhen>                
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="en.steve.epx.commands.templatePaste"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+Alt+V">
+      </key>
+      <key
+            commandId="en.steve.epx.commands.toggleLineComments"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+/">
+      </key>
+      <key
+            commandId="en.steve.epx.commands.toggleBlockComment"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+Shift+/">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.genericeditor.contentAssistProcessors">
+      <contentAssistProcessor
+            class="en.steve.epx.content.CppContentAssistProcessor"
+            contentType="en.steve.epx.content.cppsource">
+      </contentAssistProcessor>
+      <contentAssistProcessor
+            class="en.steve.epx.content.CppContentAssistProcessor"
+            contentType="en.steve.epx.content.cppheader">
+      </contentAssistProcessor>
+   </extension>
+</plugin>
