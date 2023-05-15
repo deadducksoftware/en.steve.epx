@@ -7,7 +7,7 @@ A simple Eclipse plugin to add basic C++ editing features to the stock Eclipse p
 - Commands to toggle line and block comments on text selections.
 - Template Paste (see below).
 
-Extends the IDE functionality provided by the basic Eclipse Platform for C++ development with the GNU G++ compiler.
+Extends the IDE functionality provided by the basic Eclipse platform for C++ development with the GNU G++ compiler.
 
 ## Template Paste ##
 Template Paste allows a snippet of text containing placeholders (the template) to be pasted over text selections which are used to populate the placeholders in the final text.
