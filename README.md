@@ -1,4 +1,3 @@
-# en.steve.epx
 A simple Eclipse plugin to add basic C++ editing features to the stock Eclipse platform runtime:
 
 - Basic syntax colouring for .cpp and .h source files.
@@ -9,7 +8,7 @@ A simple Eclipse plugin to add basic C++ editing features to the stock Eclipse p
 
 Extends the IDE functionality provided by the basic Eclipse platform for C++ development with the GNU G++ compiler.
 
-## Template Paste ##
+### Template Paste ###
 Template Paste allows a snippet of text containing placeholders (the template) to be pasted over text selections which are used to populate the placeholders in the final text.
 
 For example:
