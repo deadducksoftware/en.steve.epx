@@ -1,4 +1,4 @@
-A simple Eclipse plugin to add basic C++ editing features to the stock Eclipse platform runtime:
+An Eclipse plugin to add basic C++ editing features to the stock Eclipse platform runtime:
 
 - Basic syntax colouring for .cpp and .h source files.
 - File view icons for .cpp and .h source files.
